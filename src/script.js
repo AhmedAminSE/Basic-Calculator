@@ -55,7 +55,7 @@ document.querySelector('.calc-buttons').addEventListener('click', function (even
         screen.innerHTML = 0;
     }
     else if (buttonName == '=') {
-        if (!gotResult) {
+        if (!gotResult && opt !== ' ') {
             calculate();
             screen.innerHTML = temp;
             opt = ' ';
