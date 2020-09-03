@@ -2,7 +2,6 @@ let temp = 0;
 let opt = ' ';
 let screen;
 let gotResult = false;
-let tempUsed = false;
 function calculate() {
     if (opt == '+') {
         temp += parseInt(screen.innerHTML);
@@ -18,13 +17,13 @@ function calculate() {
     }
 }
 document.querySelector('.calc-buttons').addEventListener('click', function (event) {
+    console.log(event);
     screen = document.querySelector('.screen');
     const buttonName = event.target.innerHTML;
     if (Number.isInteger(parseInt(buttonName))) {
         if (screen.innerHTML == 0 || gotResult) {
             screen.innerHTML = buttonName;
             gotResult = false;
-            tempUsed = true;
         }
         else {
             screen.innerHTML += buttonName;
@@ -32,25 +31,23 @@ document.querySelector('.calc-buttons').addEventListener('click', function (even
     }
     else if (buttonName == '÷' || buttonName == '+'
         || buttonName == '×' || buttonName == '-') {
-        if (opt == ' ' && tempUsed) {
+        if (opt == ' ') {
             temp = parseInt(screen.innerHTML);
         }
         else {
             calculate();
         }
-        if (tempUsed) {
-            if (buttonName == '+') {
-                opt = '+';
-            }
-            else if (buttonName == '-') {
-                opt = '-';
-            }
-            else if (buttonName == '×') {
-                opt = '×';
-            }
-            else {
-                opt = '÷';
-            }
+        if (buttonName == '+') {
+            opt = '+';
+        }
+        else if (buttonName == '-') {
+            opt = '-';
+        }
+        else if (buttonName == '×') {
+            opt = '×';
+        }
+        else {
+            opt = '÷';
         }
         screen.innerHTML = 0;
     }
@@ -66,7 +63,6 @@ document.querySelector('.calc-buttons').addEventListener('click', function (even
         temp = 0;
         opt = ' ';
         screen.innerHTML = 0;
-        tempUsed = false;
     }
     else {
         screen.innerHTML = screen.innerHTML.substring(0, screen.innerHTML.length - 1);
